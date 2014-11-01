@@ -1,0 +1,12 @@
+Changes
+LICENSE
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+README.md
+lib/Mojo/JSON_XS.pm
+test/00-load.t
+test/10-json.t
+test/manifest.t
+test/pod.t
+test/version.t
