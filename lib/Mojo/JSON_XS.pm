@@ -1,16 +1,18 @@
 package Mojo::JSON_XS;
+use strict;
+use warnings;
 
-our $VERSION = 0.001;
+our $VERSION = 0.011;
 # From groups.google.com/forum/#!msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
 
 use Cpanel::JSON::XS;
 use Mojo::JSON;
 use Mojo::Util 'monkey_patch';
 
-my $Binary = Cpanel::JSON::XS->new->utf8(1)->allow_nonref(1)->allow_blessed(1)
-      ->convert_blessed(1);
-my $Text = Cpanel::JSON::XS->new->utf8(0)->allow_nonref(1)->allow_blessed(1)
-      ->convert_blessed(1);
+my $Binary = Cpanel::JSON::XS->new->utf8(1)->allow_nonref(1)
+    ->allow_blessed(1)->convert_blessed(1);
+my $Text = Cpanel::JSON::XS->new->utf8(0)->allow_nonref(1)
+    ->allow_blessed(1)->convert_blessed(1);
 
 monkey_patch 'Mojo::JSON', 'encode_json', sub { $Binary->encode(shift) };
 monkey_patch 'Mojo::JSON', 'decode_json', sub { $Binary->decode(shift) };
@@ -31,6 +33,7 @@ Mojo::JSON_XS - Faster JSON processing for Mojolicious
 =head1 SYNOPSIS
 
   use Mojo::JSON_XS;
+  use Mojo::JSON qw(to_json from_json ...);
 
 =head1 DESCRIPTION
 
