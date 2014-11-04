@@ -2,7 +2,7 @@ package Mojo::JSON_XS;
 use strict;
 use warnings;
 
-our $VERSION = 0.011;
+our $VERSION = 0.021;
 # From groups.google.com/forum/#!msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
 
 use Cpanel::JSON::XS;
@@ -32,7 +32,7 @@ Mojo::JSON_XS - Faster JSON processing for Mojolicious
 
 =head1 SYNOPSIS
 
-  use Mojo::JSON_XS;
+  use Mojo::JSON_XS;  # Must be earlier than Mojo::JSON
   use Mojo::JSON qw(to_json from_json ...);
 
 =head1 DESCRIPTION
@@ -41,13 +41,100 @@ Using Mojo::JSON_XS overrides Mojo::JSON, so your JSON processing will be done
 by compiled C code rather than pure perl.  L<Cpanel::JSON::XS> is a hard
 dependency, so is required both at installation time and run time.
 
+=head1 USAGE
+
+You absolutely must C<use Mojo::JSON_XS> before anything uses C<Mojo::JSON>.  (I
+got that wrong in my first day of using this module and boy does it produce some
+wacky results.)
+
+I suggest that in your top-level file (C<myapp.pl> for a lite app and
+C<script/my_app> for a full app) you use this module very early in the file
+(even if you don not mention any other JSON in that file).
+
 =head1 CAVEATS
 
-The underlying module Cpanel::JSON::XS generates slightly different output when
-decoding boolean JSON values.  For instance, C<'[true]'> is decoded as C<[1]>
-rather than C<[true]>.  Those interested/concerned are urged to look at the
-lines of C<test/10-json.t> that begin C<#!!>, ie the Mojolicious tests that
-break when using this module.
+The underlying module Cpanel::JSON::XS generates slightly different results
+(since it is maintaining compatibility with JSON::XS) from the results you would
+get from Mojo::JSON.  (Personally I subscribe to the opinion that Mojo::JSON's
+behaviour is more correct/useful.)  Be sure to check each of the differences
+noted below and consider the impact on your application.  Clearly it is no use
+generating the wrong output quickly when you could have the correct output (less
+quickly).
+
+=head2 Slashes
+
+Mojo::JSON escapes slashes when encoding (because slashes are special in JSON).
+
+  perl -MMojo::JSON=to_json -E'say to_json(q{/})'
+  # produces "\/"
+
+  perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'say to_json(q{/})'
+  # produces "/"
+
+and similar for C<encode_json>.
+
+=head2 Unicode
+
+Mojo::JSON uses uppercase for hex values when encoding
+
+  perl -MMojo::JSON=to_json -E'say to_json(qq{\x1f})'
+  # produces "\u001F"
+
+  perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'say to_json(qq{\x1f})'
+  # produces "\u001f"
+
+and similar for C<encode_json>.
+
+Mojo::JSON makes special cases for security, so u2028 and u2029 are rendered in
+their codepoint form.
+
+  perl -MMojo::JSON=to_json -E'say to_json(qq{\x{2028}})'
+  # produces "\u2028"
+
+  perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'say to_json(qq{\x{2028}})'
+  # produces the unicode character
+
+=head2 Booleans To String
+
+Mojo::JSON stringifies Booleans as "0"/"1".
+
+  perl -MMojo::JSON -E'say Mojo::JSON::false'
+  # produces "0"
+
+  perl -MMojo::JSON_XS -MMojo::JSON -E'say Mojo::JSON::false'
+  # produces "false"
+
+Stringification of a Boolean is a tricky subject anyway because the only false
+string is the empty string; not so useful for stringification.
+
+=head2 References
+
+Mojo::JSON can encode references (as a Boolean).
+
+  perl -MMojo::JSON=to_json -E'$a = q{string}; say to_json(\$a)'
+  # produces "true"
+
+  perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'$a = q{string}; say to_json(\$a)'
+  # produces error
+  # "cannot encode reference to scalar unless the scalar is 0 or 1"
+
+=head2 Numbers
+
+Mojo::JSON detects numbers much better.
+
+  perl -MMojo::JSON=to_json -E'$a = 2; say to_json(["$a", $a])'
+  # produces "["2",2]"
+
+  perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'$a = 2; say to_json(["$a", $a])'
+  # produces "["2","2"]"
+
+Mojo::JSON encodes inf and nan as strings.
+
+  perl -MMojo::JSON=to_json -E'say to_json(9**9**9)'
+  # produces "inf"
+
+  perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'say to_json(9**9**9)'
+  # produces inf
 
 =head1 SUPPORT
 
