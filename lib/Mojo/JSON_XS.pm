@@ -2,7 +2,7 @@ package Mojo::JSON_XS;
 use strict;
 use warnings;
 
-our $VERSION = 0.021;
+our $VERSION = 0.022;
 # From groups.google.com/forum/#!msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
 
 use Cpanel::JSON::XS;
@@ -135,6 +135,10 @@ Mojo::JSON encodes inf and nan as strings.
 
   perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'say to_json(9**9**9)'
   # produces inf
+
+=head2 Error Messages
+
+The handling and format of error messages is different between the two modules.
 
 =head1 SUPPORT
 
