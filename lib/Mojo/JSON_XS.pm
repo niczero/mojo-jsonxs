@@ -2,7 +2,7 @@ package Mojo::JSON_XS;
 use strict;
 use warnings;
 
-our $VERSION = 0.022;
+our $VERSION = 0.023;
 # From groups.google.com/forum/#!msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
 
 use Cpanel::JSON::XS;
@@ -104,12 +104,11 @@ Mojo::JSON stringifies Booleans as "0"/"1".
   perl -MMojo::JSON_XS -MMojo::JSON -E'say Mojo::JSON::false'
   # produces "false"
 
-Stringification of a Boolean is a tricky subject anyway because the only false
-string is the empty string; not so useful for stringification.
+If you stringify a false value, better to have a value that is also false.
 
 =head2 References
 
-Mojo::JSON can encode references (as a Boolean).
+Mojo::JSON can encode references (as Boolean).
 
   perl -MMojo::JSON=to_json -E'$a = q{string}; say to_json(\$a)'
   # produces "true"
