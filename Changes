@@ -1,4 +1,4 @@
-0.023 2014-11-06
+0.024 2014-11-07
   * Corrected usage ordering bug in 10-json.t.
   * Documented differences from Mojo::JSON.
 

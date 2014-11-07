@@ -2,7 +2,7 @@ package Mojo::JSON_XS;
 use strict;
 use warnings;
 
-our $VERSION = 0.023;
+our $VERSION = 0.024;
 # From groups.google.com/forum/#!msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
 
 use Cpanel::JSON::XS;
@@ -49,7 +49,7 @@ wacky results.)
 
 I suggest that in your top-level file (C<myapp.pl> for a lite app and
 C<script/my_app> for a full app) you use this module very early in the file
-(even if you don not mention any other JSON in that file).
+(even if you do not mention any other JSON in that file).
 
 =head1 CAVEATS
 
@@ -96,7 +96,7 @@ their codepoint form.
 
 =head2 Booleans To String
 
-Mojo::JSON stringifies Booleans as "0"/"1".
+Mojo::JSON stringifies JSON Booleans as "0"/"1".
 
   perl -MMojo::JSON -E'say Mojo::JSON::false'
   # produces "0"
@@ -137,7 +137,8 @@ Mojo::JSON encodes inf and nan as strings.
 
 =head2 Error Messages
 
-The handling and format of error messages is different between the two modules.
+The handling and format of error messages is different between the two modules,
+as you would expect.
 
 =head1 SUPPORT
 

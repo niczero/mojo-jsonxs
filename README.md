@@ -10,3 +10,5 @@ into this module.
 
   [1]: https://groups.google.com/d/msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
   [2]: http://irclog.perlgeek.de/mojo/2014-11-25#i_9718125
+
+Nic Sandfield
