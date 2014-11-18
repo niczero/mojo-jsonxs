@@ -2,7 +2,7 @@ package Mojo::JSON_XS;
 use strict;
 use warnings;
 
-our $VERSION = 0.024;
+our $VERSION = 0.025;
 # From groups.google.com/forum/#!msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
 
 use Cpanel::JSON::XS;
@@ -164,5 +164,4 @@ the terms of the Artistic License version 2.0.
 
 =head1 SEE ALSO
 
-L<Mojo::JSON>, L<Cpanel::JSON::XS>.  [Also, L<Mojo::JSON::MaybeXS> is expected
-any day soon.]
+L<Mojo::JSON>, L<Cpanel::JSON::XS>, L<Mojo::JSON::MaybeXS>.

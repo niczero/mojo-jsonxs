@@ -1,6 +1,7 @@
-0.024 2014-11-07
+0.025 2014-11-18
   * Corrected usage ordering bug in 10-json.t.
   * Documented differences from Mojo::JSON.
+  * Mentioned Mojo::JSON::MaybeXS
 
 0.011 2014-11-02
   * Added missing strictage.
