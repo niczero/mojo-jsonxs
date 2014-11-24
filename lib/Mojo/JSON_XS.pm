@@ -2,7 +2,7 @@ package Mojo::JSON_XS;
 use strict;
 use warnings;
 
-our $VERSION = 0.025;
+our $VERSION = 0.026;
 # From groups.google.com/forum/#!msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
 
 use Cpanel::JSON::XS;
@@ -83,7 +83,7 @@ Mojo::JSON uses uppercase for hex values when encoding
   perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'say to_json(qq{\x1f})'
   # produces "\u001f"
 
-and similar for C<encode_json>.
+and similar for C<encode_json>.  Cf L<http://tools.ietf.org/html/rfc7159>.
 
 Mojo::JSON makes special cases for security, so u2028 and u2029 are rendered in
 their codepoint form.
@@ -105,6 +105,8 @@ Mojo::JSON stringifies JSON Booleans as "0"/"1".
   # produces "false"
 
 If you stringify a false value, better to have a value that is also false.
+(Reini is considering changing L<Cpanel::JSON::XS> to be compatible in this
+regard: L<https://github.com/rurban/Cpanel-JSON-XS/issues/29>.)
 
 =head2 References
 
@@ -164,4 +166,4 @@ the terms of the Artistic License version 2.0.
 
 =head1 SEE ALSO
 
-L<Mojo::JSON>, L<Cpanel::JSON::XS>, L<Mojo::JSON::MaybeXS>.
+L<Mojo::JSON>, L<Cpanel::JSON::XS>.
