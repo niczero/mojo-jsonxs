@@ -1,3 +1,6 @@
+0.031 2014-12-03
+  * Raised Cpanel::JSON::XS to v3.0109.
+
 0.026 2014-11-24
   * Corrected usage ordering bug in 10-json.t.
   * Documented differences from Mojo::JSON.

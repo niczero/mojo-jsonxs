@@ -2,7 +2,7 @@ package Mojo::JSON_XS;
 use strict;
 use warnings;
 
-our $VERSION = 0.026;
+our $VERSION = 0.031;
 # From groups.google.com/forum/#!msg/mojolicious/a4jDdz-gTH0/Exs0-E1NgQEJ
 
 use Cpanel::JSON::XS;
@@ -43,9 +43,7 @@ dependency, so is required both at installation time and run time.
 
 =head1 USAGE
 
-You absolutely must C<use Mojo::JSON_XS> before anything uses C<Mojo::JSON>.  (I
-got that wrong in my first day of using this module and boy does it produce some
-wacky results.)
+You absolutely must C<use Mojo::JSON_XS> before anything uses C<Mojo::JSON>.
 
 I suggest that in your top-level file (C<myapp.pl> for a lite app and
 C<script/my_app> for a full app) you use this module very early in the file
@@ -55,15 +53,17 @@ C<script/my_app> for a full app) you use this module very early in the file
 
 The underlying module Cpanel::JSON::XS generates slightly different results
 (since it is maintaining compatibility with JSON::XS) from the results you would
-get from Mojo::JSON.  (Personally I subscribe to the opinion that Mojo::JSON's
-behaviour is more correct/useful.)  Be sure to check each of the differences
-noted below and consider the impact on your application.  Clearly it is no use
-generating the wrong output quickly when you could have the correct output (less
-quickly).
+get from Mojo::JSON.  Be sure to check each of the differences noted below and
+consider the impact on your application.  Clearly it is no use generating the
+wrong output quickly when you could have the correct output (less quickly).
+
+The examples below show C<to_json> because it is slightly shorter, but usually
+it is C<encode_json> that you will want.  Remember too that C<j> is available
+(L<Mojo::JSON/FUNCTIONS>) particularly for commandline testing.
 
 =head2 Slashes
 
-Mojo::JSON escapes slashes when encoding (because slashes are special in JSON).
+Mojo::JSON escapes slashes when encoding (to mitigate script-injection attacks).
 
   perl -MMojo::JSON=to_json -E'say to_json(q{/})'
   # produces "\/"
@@ -93,20 +93,6 @@ their codepoint form.
 
   perl -MMojo::JSON_XS -MMojo::JSON=to_json -E'say to_json(qq{\x{2028}})'
   # produces the unicode character
-
-=head2 Booleans To String
-
-Mojo::JSON stringifies JSON Booleans as "0"/"1".
-
-  perl -MMojo::JSON -E'say Mojo::JSON::false'
-  # produces "0"
-
-  perl -MMojo::JSON_XS -MMojo::JSON -E'say Mojo::JSON::false'
-  # produces "false"
-
-If you stringify a false value, better to have a value that is also false.
-(Reini is considering changing L<Cpanel::JSON::XS> to be compatible in this
-regard: L<https://github.com/rurban/Cpanel-JSON-XS/issues/29>.)
 
 =head2 References
 
