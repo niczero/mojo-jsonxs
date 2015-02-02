@@ -23,7 +23,7 @@ WriteMakefile(
   BUILD_REQUIRES => {'Test::More' => 0},
   CONFIGURE_REQUIRES => {'ExtUtils::MakeMaker' => 6.3},
   PREREQ_PM => {
-    Mojolicious => 5.48,
+    Mojolicious => 5.66,
     'Cpanel::JSON::XS' => 3.0109
   },
   EXE_FILES => [],
