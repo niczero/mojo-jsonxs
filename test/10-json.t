@@ -17,7 +17,7 @@ use Mojo::JSON qw(decode_json encode_json false from_json j to_json true);
 use Mojo::Util 'encode';
 use Scalar::Util 'dualvar';
 
-sub _cpanel_version { !! Cpanel::JSON::XS->VERSION(shift // 0) }
+sub _cpanel_version { !! eval { Cpanel::JSON::XS->VERSION(shift // 0); 1 } }
 
 # Decode array
 my $array = decode_json '[]';
