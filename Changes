@@ -1,5 +1,4 @@
-1.002 2017-06-05
-  - Update to use Mojo::File.
+1.003 2017-06-10
   - Enable more tests.
 
 0.101 2015-02-02
