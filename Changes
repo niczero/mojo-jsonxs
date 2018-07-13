@@ -1,5 +1,7 @@
 
   - fixed test broken by recent Cpanel::JSON::XS (github #2).
+  - added documentation note about recent changes in Mojo::JSON that
+    make this module no longer necessary.
 
 1.003 2017-06-10
   - Enable more tests.

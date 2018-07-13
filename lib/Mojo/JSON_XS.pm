@@ -41,6 +41,10 @@ Using Mojo::JSON_XS overrides Mojo::JSON, so your JSON processing will be done
 by compiled C code rather than pure perl.  L<Cpanel::JSON::XS> is a hard
 dependency, so is required both at installation time and run time.
 
+Note that this module is no longer required if Mojolicious is at least version
+7.87, as it provides XS hooks automatically now as long as Cpanel::JSON::XS is
+installed in your system.
+
 =head1 USAGE
 
 You absolutely must C<use Mojo::JSON_XS> before anything uses C<Mojo::JSON>.
