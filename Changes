@@ -1,3 +1,6 @@
+
+  - fixed test broken by recent Cpanel::JSON::XS (github #2).
+
 1.003 2017-06-10
   - Enable more tests.
 
