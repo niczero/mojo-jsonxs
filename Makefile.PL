@@ -11,16 +11,24 @@ WriteMakefile(
   AUTHOR       => 'Nic Sandfield <niczero@cpan.org>',
   LICENSE      => 'artistic_2',
   META_MERGE   => {
+    'meta-spec' => { version => 2 },
+    dynamic_config => 0,
     requires  => {perl => 5.010_001},
     resources => {
-      homepage    => 'http://niczero.github.io/mojo-jsonxs',
       license     => 'http://www.opensource.org/licenses/artistic-license-2.0',
-      repository  => 'http://github.com/niczero/mojo-jsonxs',
-      bugtracker  => 'http://github.com/niczero/mojo-jsonxs/issues'
+      homepage    => 'http://niczero.github.io/mojo-jsonxs',
+      repository => {
+        url => 'https://github.com/niczero/mojo-jsonxs.git',
+        web => 'https://github.com/niczero/mojo-jsonxs',
+        type => 'git',
+      },
+      bugtracker => {
+        web => 'http://github.com/niczero/mojo-jsonxs/issues',
+      },
     },
     no_index => {directory => [qw(data test)]}
   },
-  BUILD_REQUIRES => {'Test::More' => 0},
+  TEST_REQUIRES => {'Test::More' => 0},
   CONFIGURE_REQUIRES => {'ExtUtils::MakeMaker' => 6.3},
   PREREQ_PM => {
     Mojolicious => 5.66,
